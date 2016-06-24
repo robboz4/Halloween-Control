@@ -1,11 +1,13 @@
 
 # From https://www.raspberrypi.org/forums/viewtopic.php?f=32&t=88557
-# Modified October 2015 to play alternate files. Also createsopens a file 
+# Modified October 2015 to play alternate files. Also creates and opens a file 
 # to log timestamps and files played for debugging.
 # If video is playing cntl-C will halt it and the program will wait for the next trigger.
 # If you hit cntrl-C while wating for a trigger it will end the program.
 #
-# 
+# My two files are Thriller.mp4 and Singing_Pumpkins.mp4. You will have to source
+# these or  alternative files. If you use different files don't for get to tweak the
+# logging statements so you know what's really playing or turn off the log feature.
 #
 # Dave Robinson 11/1/15
 
@@ -15,7 +17,7 @@
 
 # Made a Fog function that accepts on/off and duration. Never really send an off as duration
 # is used to turn off the machine.
-# Fixed the file open issue (a+ creates the file if it isn't there and appends if it is! So simple!
+# Fixed the file open issue (a+ creates the file if it isn't there and appends if it is! So simple!)
 # Dave Robinson 6/23/16
 
 
