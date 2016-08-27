@@ -25,4 +25,4 @@ turns it off. Using the PowerTail from Adafruit works fine connected to the 5V l
 5) A HDMI projector. I use small pocket laser one and configure the Pi for VGA. Sound comes
 out of the HDMI/VGA adaptor to be plugged into  some cheap PC speakers.
 
-6) Don't foget the pumpkins.
+6) Don't forget the pumpkins.
