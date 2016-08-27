@@ -47,7 +47,7 @@ def MyLog(logData):                                  # My logging function
         log.flush()                                  # Needed to make sure file gets updated
 #End of Log function
 
-def Fog(sw_mode, Dur):                               # Fog function turn s on fog mahie for passed in "Dur"
+def Fog(sw_mode, Dur):                               # Fog function turns on fog machine for passed in "Dur"
                                                      # Turns off fog machine after "Dur" seconds. 
 	    InFog=True
             GPIO.output(POWER,sw_mode)
