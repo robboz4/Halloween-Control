@@ -1,13 +1,10 @@
-
 # From https://www.raspberrypi.org/forums/viewtopic.php?f=32&t=88557
-# Modified October 2015 to play alternate files. Also creates and opens a file 
+# Modified October 2015 to play alternate files. Also createsopens a file 
 # to log timestamps and files played for debugging.
 # If video is playing cntl-C will halt it and the program will wait for the next trigger.
 # If you hit cntrl-C while wating for a trigger it will end the program.
 #
-# My two files are Thriller.mp4 and Singing_Pumpkins.mp4. You will have to source
-# these or  alternative files. If you use different files don't for get to tweak the
-# logging statements so you know what's really playing or turn off the log feature.
+# 
 #
 # Dave Robinson 11/1/15
 
@@ -17,24 +14,30 @@
 
 # Made a Fog function that accepts on/off and duration. Never really send an off as duration
 # is used to turn off the machine.
-# Fixed the file open issue (a+ creates the file if it isn't there and appends if it is! So simple!)
+# Fixed the file open issue (a+ creates the file if it isn't there and appends if it is! So simple!
 # Dave Robinson 6/23/16
 
 
 import RPi.GPIO as GPIO
 import time
 import os
+import random
+from random import randrange
+
 
 
 PIR=18                                               # Set GPIO 18 as input for PIR trigger
 POWER=17					     # Set GPIO 17 as output for relay.
+Pirate=23
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(PIR,GPIO.IN)
 GPIO.setup(POWER,GPIO.OUT)
-
+GPIO.setup(Pirate,GPIO.OUT)
+Loop_count= 10
 File_to_play = 1				     # Flag to alternate files to be played
-
-
+now = time.localtime(time.time())
+year, month, day, hour, minute, second, weekday, yearday, daylight = now
+old_minute = minute + randrange(0,5,1)
 
 
 
@@ -46,11 +49,24 @@ def MyLog(logData):                                  # My logging function
         log.write(logData)                           # Add padded in text - the cuurent playig/ending file
         log.flush()                                  # Needed to make sure file gets updated
 #End of Log function
+def Pirate_Talk():
+
+  
+            GPIO.output(Pirate,0)
+            time.sleep(1)
+            GPIO.output(Pirate,1)
+            MyLog(" Pirate Talking!\n")
+#End of Pirate
 
 def Fog(sw_mode, Dur):                               # Fog function turns on fog machine for passed in "Dur"
                                                      # Turns off fog machine after "Dur" seconds. 
-	    InFog=True
+	    
+            InFog=True
+#            GPIO.output(Pirate,0)
+#            time.sleep(1)
+#            GPIO.output(Pirate,1)
             GPIO.output(POWER,sw_mode)
+            
 	    time.sleep(Dur)
 	    if sw_mode == 0:
                 FogText = " Fog Machine on for " + str(Dur) + " seconds.\n"
@@ -64,19 +80,21 @@ def Fog(sw_mode, Dur):                               # Fog function turns on fog
 os.system("clear")                                   # Clear Screen   
 os.system("setterm -cursor off")                     # Hide Cursor  
 log = open("song.log", "a+")			     # Open a file for logging. 
-
+#Loop_count = 0
 
 log.seek(0, 2)                                       # This will append new entries
 
 HeaderText = "Starting Log at " + time.asctime( time.localtime(time.time()) ) + "\n"
 log.write(HeaderText)
 # log.flush()					     # Needed to make sure log file gets updated 
-
-Fog(1,0)                                             # Makre sure fog machine is off
+text_message= " Fog Random start time: " + str(old_minute) + "\n"
+MyLog(text_message)
+Fog(1,0)                                             # Make sure fog machine is off
 while True:                                          # Looping until press Ctrl-C to break
   if (GPIO.input(PIR)==True):                        # Check PIR trigger
   
-
+        Pirate_Talk()
+        time.sleep(1)
         Fog(0, 5)                                    # Call for fog!!
     
 
@@ -101,5 +119,29 @@ while True:                                          # Looping until press Ctrl-
          
 #         log.flush() 				     # Needed this extra flush
          time.sleep(.2);                             # Loop until PIR is cleared
+
+  now = time.localtime(time.time())
+  year, month, day, hour, minute, second, weekday, yearday, daylight = now
+  
+  if minute <= 57:
+     if minute > old_minute :
+	old_minute = minute + randrange(1,15,1)
+	timer_text = " New delay time < 57 @" + str(old_minute) + " minutes. \n"
+        MyLog(timer_text)
+        Pirate_Talk()
+        Fog(0,randrange(5,15,1))
+        if old_minute > 60 :
+           old_minute =58
+           timer_text = " New delay time > 60 @" + str(old_minute) + " minutes. \n"
+           MyLog(timer_text)
+        if minute == 59:
+           old_minute = randrange(1,15,1)
+           timer_text = " New delay time at the hour @" + str(old_minute) + " minutes. \n"
+           MyLog(timer_text)
+  else:
+    old_minute = randrange(0,15,1)
+
+
+
 # End of Program.
 
