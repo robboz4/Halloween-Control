@@ -29,6 +29,6 @@ I updated the relay board to a board with 4 relays and added control of a second
 5) A HDMI projector. I use a small pocket laser  and configure the Pi for VGA. Sound comes
 out of the HDMI/VGA adaptor and is plugged into some cheap PC speakers.
 
-6) Fog machine and any other aniatronic device you want to activate.
+6) Fog machine and any other animated electronic device you want to activate.
 
 7) Don't forget the pumpkins. Real or plastic. 
