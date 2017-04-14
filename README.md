@@ -1,4 +1,4 @@
-# Halloween-Control
+Halloween-Control
 Python code for the Pi to trigger a video projector for a singing pumpkins
 Halloween display. This code plays two files which project heads onto 3 pumpkins.
 The first is Monster Bash and the second is Thriller. These can be bought off the internet
@@ -24,9 +24,9 @@ connect the relay to 3.3v to get it to work correctly. Also a 0 turns the relay 
 turns it off. Using the PowerTail from Adafruit works fine connected to the 5V line.
 I updated the relay board to a board with 4 relays and added control of a second relay via pin 23.
 
-4) An animation of  singing pumpkins synced to an audio track.
+4) An animation of  singing pumpkins synced to an audio track. examples can be found here: http://www.themightymicroscope.com/windowcreeps/
 
-5) A HDMI projector. I use a small pocket laser  and configure the Pi for VGA. Sound comes
+5) A HDMI projector. I use a small pocket laser  projector and configure the Pi for VGA. Sound comes
 out of the HDMI/VGA adaptor and is plugged into some cheap PC speakers.
 
 6) Fog machine and any other animated electronic device you want to activate.
