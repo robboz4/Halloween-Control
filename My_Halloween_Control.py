@@ -18,6 +18,22 @@
 # Dave Robinson 6/23/16
 
 
+
+# Adding Meagio card - 8 relays!!  
+# To do:
+# change code relay  from gpio calls to medaio calls. It will still read in the PIR from the GPIO pin
+# but all relay commands will be variations of the list below.
+
+# Here are the commands to use the Megaio board. Must include the megaio.py file so need to add to github.
+# >>> import megaio	#import libraries
+# >>> megaio.set_relay(0, 2, 1)	#turn on relay 2 on stack level 0
+# >>> megaio.set_relay(0, 2, 0)	#turn off relay 2 on stack level 0
+# >>> megaio.set_relays(0,0xFF)	#turn on all relays
+# >>> megaio.set_relays(0,0x00)	#turn off all relays
+# Dave Robinson 5/17/18
+
+
+
 import RPi.GPIO as GPIO
 import time
 import os
