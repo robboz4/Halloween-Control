@@ -32,6 +32,13 @@
 # >>> megaio.set_relays(0,0x00)	#turn off all relays
 # Dave Robinson 5/17/18
 
+# Added mega code based on standalone tetsing of PIR and the board. Had to change logic on fog machine.
+# Pirate is on relay 2 and Fog is on relay 8...
+
+#  Here's a link to megaio https://www.sequentmicrosystems.com/megaio/MEGA-IO-UsersGuide.pdf
+# will need to compile on the Pi to support the board.
+
+
 
 
 import RPi.GPIO as GPIO
@@ -39,7 +46,7 @@ import time
 import os
 import random
 from random import randrange
-
+import megaio     # New megaio library
 
 
 PIR=18                                               # Set GPIO 18 as input for PIR trigger
@@ -67,29 +74,31 @@ def MyLog(logData):                                  # My logging function
 #End of Log function
 def Pirate_Talk():
 
-  
-            GPIO.output(Pirate,0)
+            megaio.set_relay(0, 2, 1)               # Pirate on Relay 2
+           # GPIO.output(Pirate,0)
             time.sleep(1)
-            GPIO.output(Pirate,1)
+           # GPIO.output(Pirate,1)
+            megaio.set_relay(0, 2, 0)
             MyLog(" Pirate Talking!\n")
 #End of Pirate
 
 def Fog(sw_mode, Dur):                               # Fog function turns on fog machine for passed in "Dur"
                                                      # Turns off fog machine after "Dur" seconds. 
-	    
+	                                                 # Switching modes due to megaio board.
             InFog=True
 #            GPIO.output(Pirate,0)
 #            time.sleep(1)
 #            GPIO.output(Pirate,1)
-            GPIO.output(POWER,sw_mode)
-            
+#           GPIO.output(POWER,sw_mode)
+        megaio.set_relay(0,8,sw_mode)
 	    time.sleep(Dur)
 	    if sw_mode == 0:
                 FogText = " Fog Machine on for " + str(Dur) + " seconds.\n"
                 MyLog(FogText)
 	    if sw_mode == 1:
 	        MyLog(" Fog machine off.\n")
-	    GPIO.output(POWER,1)
+	        megaio.set_relay(0,8,0)
+#	    GPIO.output(POWER,1)
             InFog=False	        
 #End of Fog function
 
