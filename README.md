@@ -32,3 +32,7 @@ out of the HDMI/VGA adaptor and is plugged into some cheap PC speakers.
 6) Fog machine and any other animated electronic device you want to activate.
 
 7) Don't forget the pumpkins. Real or plastic. 
+
+
+
+<<Moved to gitlab June 7th 2018>>
